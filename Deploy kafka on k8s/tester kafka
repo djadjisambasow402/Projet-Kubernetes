@@ -1,0 +1,29 @@
+Pour tester Kafka, vous pouvez utiliser divers outils et commandes en ligne de commande. Voici quelques étapes de base pour tester votre déploiement Kafka :
+
+1) Créer un Topic:
+Utilisez la commande kafka-topics pour créer un topic. Par exemple, pour créer un topic appelé "test-topic", vous pouvez exécuter :
+
+
+kafka-topics.sh --create --topic test-topic --bootstrap-server kafka-service:9092 --partitions 3 --replication-factor 1
+
+Assurez-vous de remplacer "kafka-service" par le nom de service correct pour votre déploiement Kafka.
+
+2) Lister les Topics:
+Utilisez la commande kafka-topics pour lister les topics existants :
+
+
+kafka-topics.sh --list --bootstrap-server kafka-service:9092
+
+3) Produire des Messages:
+Utilisez la commande kafka-console-producer pour produire des messages dans le topic que vous avez créé :
+
+kafka-console-producer.sh --topic test-topic --bootstrap-server kafka-service:9092
+
+Vous pouvez maintenant saisir des messages qui seront publiés dans le topic.
+
+4) Consommer des Messages:
+Ouvrez un autre terminal et utilisez la commande kafka-console-consumer pour consommer les messages du topic :
+
+kafka-console-consumer.sh --topic test-topic --bootstrap-server kafka-service:9092 --from-beginning
+
+Vous devriez voir les messages que vous avez produits avec le producteu
