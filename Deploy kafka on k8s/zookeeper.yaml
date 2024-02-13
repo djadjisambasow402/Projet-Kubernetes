@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper-service
+  namespace: newgupe
+  labels:
+    app: zookeeper  # Add this line for consistency
+spec:
+  type: NodePort
+  ports:
+    - name: zookeeper-port
+      port: 2181
+      targetPort: 2181
+      nodePort: 30181
+  selector:
+    app: zookeeper
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zookeeper
+  namespace: newgupe
+  labels:
+    app: zookeeper
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: zookeeper
+  template:
+    metadata:
+      labels:
+        app: zookeeper
+    spec:
+      containers:
+        - image: wurstmeister/zookeeper
+          imagePullPolicy: Always
+          name: zookeeper
+          ports:
+            - containerPort: 2181
