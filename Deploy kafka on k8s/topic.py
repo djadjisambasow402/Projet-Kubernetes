@@ -1,8 +1,10 @@
+# pip install --upgrade kafka-python
+
 from kafka.admin import KafkaAdminClient, NewTopic
 from kafka import KafkaProducer, KafkaConsumer
 
 bootstrap_servers = '192.168.2.240:9092'
-topic_name = 'domodatopic'
+topic_name = 'mytopic'
 num_partitions = 3
 replication_factor = 1
 
