@@ -1,0 +1,81 @@
+.......................................................................................................
+Créer un USER (devops):
+.........................
+usermod -aG sudo devops
+visudo
+# ajouter cette ligne	%devops   ALL=(ALL) NOPASSWD: ALL
+........................................................................................................
+1. set context:
+...............
+This command sets the context named kube-context with the specified cluster and user.
+
+# kubectl config set-context kube-context --cluster=kubernetes-admin@clusterpreprod.local --user=devops
+
+......................................................................................................
+2. use context:
+................
+This command instructs kubectl to use the context named kube-context for subsequent commands.
+
+# kubectl config use-context kube-context
+
+..........................................................
+3. Generate Certificate Signing Request (CSR):
+...............................................
+
+# openssl req -new -newkey rsa:2048 -nodes -keyout devops.key -out devops.csr
+
+.................................................................................................
+4. Sign the CSR:
+................
+After generating the CSR, you're signing it using the CA certificate and key to generate a certificate named devops.crt
+
+# openssl x509 -req -in devops.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out devops.crt -days 365
+.......................................................................................................
+5. View Certificate Details:
+.............................
+ view the details of the generated certificate.
+
+# openssl x509 -in devops.crt -text -noout
+
+.......................................................................................................
+6. Set Credentials:
+...................
+This command sets the credentials for the user devops using the generated client certificate and key.
+
+# kubectl config set-credentials devops --client-certificate=devops.crt --client-key=devops.key
+
+............................................................................................................
+7. Set Context Again:
+.....................
+This command sets the context kube-context again with the specified cluster and user. It's redundant as it's already set previously.
+
+# kubectl config set-context kube-context --cluster=kubernetes-admin@clusterpreprod.local --user=devops
+.............................................................................................................
+8. RBAC:
+........
+# kubectl config use-context kubernetes-admin@clusterpreprod.local
+
+# cluster-role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: devops-role
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch"]
+
+
+# cluster-role-binding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kube-user-binding
+subjects:
+- kind: User
+  name: "devops"
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: devops-role
+  apiGroup: rbac.authorization.k8s.io
