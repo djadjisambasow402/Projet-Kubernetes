@@ -2,10 +2,9 @@
 
 
 # 1) installer et configurer NFS server:
-
- apt-get install nfs-server
- nano /etc/exports
-    /k8_storage + autorisation
+apt-get install nfs-server
+nano /etc/exports 
+/k8_storage + autorisation
 
 # 2) installer et configurer NFS client:
 
