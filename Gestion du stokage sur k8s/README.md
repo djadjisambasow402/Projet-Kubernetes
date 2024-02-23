@@ -1,18 +1,18 @@
-# Dynamic provisioning with NFS
+Dynamic provisioning with NFS
 
 
-# 1) installer et configurer NFS server:
+1) installer et configurer NFS server:
 apt-get install nfs-server
 nano /etc/exports 
 /k8_storage + autorisation
 
-# 2) installer et configurer NFS client:
+2) installer et configurer NFS client:
 
- apt-get install nfs-common
+apt-get install nfs-common
 
 
 
-# 3) Dynamic provisioning configuration:
+3) Dynamic provisioning configuration:
 
 helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
 helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
