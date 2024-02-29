@@ -3,13 +3,13 @@
 # vault operator init
 ................................................................................
  vault operator init
-Unseal Key 1: 0lcVTO8wMjInnbh3mdddlhGq6M2t34lprKoOJtUdL+Ol
-Unseal Key 2: Rf5rz6+UYGB9U4Er9gjgibh8sm4DyR+vP8sP1PSAsbja
-Unseal Key 3: wmrBjhVES9b5ZsV7c1KqOXn+bLkgTROVBKm/EohBmpD1
-Unseal Key 4: eL2QewQNVeNc3eCcfi9BCOgNFolHvnv3421+LFNrvuv0
-Unseal Key 5: DVxTC3fW0LPnvvZyhDSeRP8670pKIDmFLTX7VydQoJ6o
+Unseal Key 1:
+Unseal Key 2: 
+Unseal Key 3:
+Unseal Key 4: 
+Unseal Key 5: 
 
-Initial Root Token: hvs.lyNJZCHqqKalkyPSVPnthzht
+Initial Root Token: 
 .....................................................................................
 
 2) unseal à faire 3 fois en ajouter une clé différente à chaque fois
